@@ -94,5 +94,5 @@ AbstractInterp4Command* Interp4Rotate::CreateCmd()
  */
 void Interp4Rotate::PrintSyntax() const
 {
-  cout << "   Move  NazwaObiektu  Szybkosc[m/s]  DlugoscDrogi[m]" << endl;
+  cout << "   Rotate nazwa_obiektu nazwa_osi szybko±¢_kątowa kąt_obrotu" << endl;
 }
