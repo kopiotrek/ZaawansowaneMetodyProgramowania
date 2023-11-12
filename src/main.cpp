@@ -78,10 +78,8 @@ void execCommands( const char* fname ){
 
 int main()
 {
-
   std::vector<std::string> libNames = {"libInterp4Move.so", "libInterp4Pause.so", "libInterp4Rotate.so", "libInterp4Set.so"};
   addLibs(libNames);
 
   execCommands("commands.cmd");
-
 }
