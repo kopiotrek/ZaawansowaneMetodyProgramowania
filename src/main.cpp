@@ -5,11 +5,33 @@
 
 using namespace std;
 
+void printPluginInfo( AbstractInterp4Command* pCmd ){
+	cout << endl;
+	cout << pCmd->GetCmdName() << endl;
+	cout << endl;
+	pCmd->PrintSyntax();
+	cout << endl;
+	pCmd->PrintCmd();
+	cout << endl;
+}
 
 int main()
 {
   void *pLibHnd_Move = dlopen("libInterp4Move.so",RTLD_LAZY);
+  void *pLibHnd_Pause = dlopen("libInterp4Pause.so",RTLD_LAZY);
+  void *pLibHnd_Rotate = dlopen("libInterp4Rotate.so",RTLD_LAZY);
+  void *pLibHnd_Set = dlopen("libInterp4Set.so",RTLD_LAZY);
+
+
+
   AbstractInterp4Command *(*pCreateCmd_Move)(void);
+  AbstractInterp4Command *(*pCreateCmd_Pause)(void);
+  AbstractInterp4Command *(*pCreateCmd_Rotate)(void);
+  AbstractInterp4Command *(*pCreateCmd_Set)(void);
+
+
+
+
   void *pFun;
 
   if (!pLibHnd_Move) {
@@ -24,30 +46,18 @@ int main()
     return 1;
   }
   pCreateCmd_Move = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun);
-
-
-  AbstractInterp4Command *pCmd = pCreateCmd_Move();
-
-  cout << endl;
-  cout << pCmd->GetCmdName() << endl;
-  cout << endl;
-  pCmd->PrintSyntax();
-  cout << endl;
-  pCmd->PrintCmd();
-  cout << endl;
-  
-  delete pCmd;
-
-
-    void *pLibHnd_Set = dlopen("libInterp4Set.so",RTLD_LAZY);
-  AbstractInterp4Command *(*pCreateCmd_Set)(void);
-
-  if (!pLibHnd_Set) {
-    cerr << "!!! Brak biblioteki: Interp4Set.so" << endl;
+  pFun = dlsym(pLibHnd_Pause,"CreateCmd");
+  if (!pFun) {
+    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
     return 1;
   }
-
-
+  pCreateCmd_Pause = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun);
+  pFun = dlsym(pLibHnd_Rotate,"CreateCmd");
+  if (!pFun) {
+    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
+    return 1;
+  }
+  pCreateCmd_Rotate = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun);
   pFun = dlsym(pLibHnd_Set,"CreateCmd");
   if (!pFun) {
     cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
@@ -56,17 +66,20 @@ int main()
   pCreateCmd_Set = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun);
 
 
-  AbstractInterp4Command *pCmd_2 = pCreateCmd_Set();
+  AbstractInterp4Command* pCmd[4];
+  pCmd[0]=pCreateCmd_Move();
+  pCmd[1]=pCreateCmd_Pause();
+  pCmd[2]=pCreateCmd_Rotate();
+  pCmd[3]=pCreateCmd_Set();
 
-  cout << endl;
-  cout << pCmd_2->GetCmdName() << endl;
-  cout << endl;
-  pCmd_2->PrintSyntax();
-  cout << endl;
-  pCmd_2->PrintCmd();
-  cout << endl;
-  
-  delete pCmd_2;
+for (size_t i = 0; i < 4; i++)
+{
+  printPluginInfo(pCmd[i]);
+  delete pCmd[i];
+}
 
   dlclose(pLibHnd_Move);
+  dlclose(pLibHnd_Pause);
+  dlclose(pLibHnd_Rotate);
+  dlclose(pLibHnd_Set);
 }

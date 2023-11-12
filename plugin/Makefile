@@ -35,8 +35,8 @@ __lines_for_space__:
 	@echo "  Wtyczka dla polecenia 'Rotate' zostala utworzona."
 	@echo
 
-../libs/libbInterp4Pause.so: obj/bInterp4Pause.o
-	g++ ${LDFLAGS} -o ../libs/libbInterp4Pause.so obj/bInterp4Pause.o
+../libs/libInterp4Pause.so: obj/Interp4Pause.o
+	g++ ${LDFLAGS} -o ../libs/libInterp4Pause.so obj/Interp4Pause.o
 	@echo
 	@echo "  Wtyczka dla polecenia 'Rotate' zostala utworzona."
 	@echo
@@ -56,10 +56,10 @@ obj/Interp4Rotate.o: src/Interp4Rotate.cpp ../inc/AbstractInterp4Command.hh\
                    inc/Interp4Rotate.hh 
 	g++ -c ${CPPFLAGS} -o obj/Interp4Rotate.o src/Interp4Rotate.cpp
 
-obj/bInterp4Pause.o: src/bInterp4Pause.cpp ../inc/AbstractInterp4Command.hh\
+obj/Interp4Pause.o: src/Interp4Pause.cpp ../inc/AbstractInterp4Command.hh\
                    ../inc/AbstractScene.hh ../inc/AbstractComChannel.hh\
-                   inc/bInterp4Pause.hh 
-	g++ -c ${CPPFLAGS} -o obj/bInterp4Pause.o src/bInterp4Pause.cpp
+                   inc/Interp4Pause.hh 
+	g++ -c ${CPPFLAGS} -o obj/Interp4Pause.o src/Interp4Pause.cpp
 
 
 clean:
