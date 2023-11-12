@@ -38,5 +38,35 @@ int main()
   
   delete pCmd;
 
+
+    void *pLibHnd_Set = dlopen("libInterp4Set.so",RTLD_LAZY);
+  AbstractInterp4Command *(*pCreateCmd_Set)(void);
+
+  if (!pLibHnd_Set) {
+    cerr << "!!! Brak biblioteki: Interp4Set.so" << endl;
+    return 1;
+  }
+
+
+  pFun = dlsym(pLibHnd_Set,"CreateCmd");
+  if (!pFun) {
+    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
+    return 1;
+  }
+  pCreateCmd_Set = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun);
+
+
+  AbstractInterp4Command *pCmd_2 = pCreateCmd_Set();
+
+  cout << endl;
+  cout << pCmd_2->GetCmdName() << endl;
+  cout << endl;
+  pCmd_2->PrintSyntax();
+  cout << endl;
+  pCmd_2->PrintCmd();
+  cout << endl;
+  
+  delete pCmd_2;
+
   dlclose(pLibHnd_Move);
 }
