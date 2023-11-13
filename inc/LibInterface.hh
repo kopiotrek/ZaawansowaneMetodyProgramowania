@@ -1,13 +1,10 @@
+#ifndef  LIBINTERFACE_HH
+#define  LIBINTERFACE_HH
+
 #include <iostream>
 #include <dlfcn.h>
 #include <cassert>
 #include "AbstractInterp4Command.hh"
-
-// #include "MobileObj.hh"
-
-
-#ifndef  LIBINTERFACE_HH
-#define  LIBINTERFACE_HH
 
 class LibInterface{
   public:
