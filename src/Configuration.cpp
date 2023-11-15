@@ -23,3 +23,15 @@ void Configuration::addLibs( vector<string> names ){
 	for( string name: names  )
 		addLib(name);
 }
+
+void Configuration::addCube( Cube obj ){
+    _Cubes.push_back(obj);
+}
+
+vector<Cube> Configuration::getCubes(){
+    return _Cubes;
+}
+
+map<string,shared_ptr<LibInterface>> Configuration::getLibraries(){
+	return libs;
+}

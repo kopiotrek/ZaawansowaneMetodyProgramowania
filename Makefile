@@ -24,9 +24,7 @@ LDFLAGS=-Wall
 interp: obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Cube.o obj/xmlhandler.o 
 	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Cube.o obj/xmlhandler.o  -ldl -lxerces-c
 
-obj/main.o: src/main.cpp  inc/AbstractInterp4Command.hh inc/AbstractScene.hh\
-            inc/AbstractComChannel.hh inc/LibInterface.hh inc/xmlinterp.hh\
-			inc/xmlhandler.hh inc/Configuration.hh inc/klient.hh inc/Cube.hh
+obj/main.o: src/main.cpp
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
 
 obj/LibInterface.o: src/LibInterface.cpp inc/LibInterface.hh

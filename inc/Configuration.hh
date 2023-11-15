@@ -28,7 +28,8 @@ public:
   void addLib( string name );
   void addCube( Cube obj );
   void printPluginInfo( AbstractInterp4Command* pCmd );
-  std::vector<std::string> getLibraries();
+  // std::vector<std::string> getLibraries();
+  map<string,shared_ptr<LibInterface>> getLibraries();
   std::vector<Cube> getCubes();
   
 };
