@@ -170,22 +170,32 @@ int klient(Configuration &rConfig)
       "AddObj Name=Podstawa2.Ramie1.Ramie2 RGB=(100,200,0) Scale=(2,2,1) Shift=(0.5,0,0) RotXYZ_deg=(0,-45,0) Trans_m=(3,0,0)\n";
 
   std::vector<Cube> Cubes = rConfig.getCubes();
-  const char *AttrNames[] = {" Shift=", " Scale=", " RotXYZ_deg=", " Trans_m=", " RGB="};
-  for (int i = 0; i < size(Cubes); i++)
+  const char *AttrNames[] = {" Shift=(", ") Scale=(", ") RotXYZ_deg=(", ") Trans_m=(", ") RGB=("};
+  std::string addObjCmd;
+  std::vector<string> Commands;
+  // for (int i = 0; i < size(Cubes); i++)
+    for (int i = 0; i < 1; i++)
   {
-    cout << "Kostka nr: " << i << " Name: " << Cubes[i].getName() << endl;
+    addObjCmd += "AddObj Name=" + Cubes[i].getName();
     std::vector<Vector3D> attr = Cubes[i].getAttributes();
     for (int j = 0; j < 5; j++)
     {
-      cout << AttrNames[j] << attr[j];
+      addObjCmd += AttrNames[j];
+      addObjCmd += std::to_string(attr[j][0]) + ",";
+      addObjCmd += std::to_string(attr[j][1]) + ",";
+      addObjCmd += std::to_string(attr[j][2]);
     }
-    cout << endl;
+    addObjCmd += ")\n";
+    Commands.push_back(addObjCmd);
+    // addObjCmd="";
   }
 
-  cout << "Konfiguracja:" << endl;
-  cout << sConfigCmds << endl;
+ const char* charPtr = addObjCmd.c_str();
+   cout << "Konfiguracja:" << endl;
+  cout << charPtr << endl;
 
-  Send(Socket4Sending, sConfigCmds);
+
+  Send(Socket4Sending, charPtr);
 
   cout << "Akcja:" << endl;
   for (GeomObject &rObj : Scn._Container4Objects)

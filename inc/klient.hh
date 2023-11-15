@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <thread>
 #include <mutex>
+#include <string>
 #include <vector>
 #include "AccessControl.hh"
 #include "Port.hh"
