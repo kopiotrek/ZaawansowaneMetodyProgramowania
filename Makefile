@@ -21,12 +21,12 @@ LDFLAGS=-Wall
 
 
 
-interp: obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/toolbox.o obj/xmlhandler.o
-	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/toolbox.o obj/xmlhandler.o -ldl -lxerces-c
+interp: obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Cube.o obj/xmlhandler.o 
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Cube.o obj/xmlhandler.o  -ldl -lxerces-c
 
 obj/main.o: src/main.cpp  inc/AbstractInterp4Command.hh inc/AbstractScene.hh\
             inc/AbstractComChannel.hh inc/LibInterface.hh inc/xmlinterp.hh\
-			inc/xmlhandler.hh inc/toolbox.hh inc/klient.hh
+			inc/xmlhandler.hh inc/Configuration.hh inc/klient.hh inc/Cube.hh
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
 
 obj/LibInterface.o: src/LibInterface.cpp inc/LibInterface.hh
@@ -38,12 +38,14 @@ obj/xmlinterp.o: src/xmlinterp.cpp inc/xmlinterp.hh
 obj/klient.o: src/klient.cpp inc/klient.hh
 	g++ -c ${CPPFLAGS} -o obj/klient.o src/klient.cpp
 
-obj/toolbox.o: src/toolbox.cpp inc/toolbox.hh
-	g++ -c ${CPPFLAGS} -o obj/toolbox.o src/toolbox.cpp
+obj/Configuration.o: src/Configuration.cpp inc/Configuration.hh
+	g++ -c ${CPPFLAGS} -o obj/Configuration.o src/Configuration.cpp
 
 obj/xmlhandler.o: src/xmlhandler.cpp inc/xmlhandler.hh
 	g++ -c ${CPPFLAGS} -o obj/xmlhandler.o src/xmlhandler.cpp
 
+obj/Cube.o: src/Cube.cpp inc/Cube.hh
+	g++ -c ${CPPFLAGS} -o obj/Cube.o src/Cube.cpp
 
 doc:
 	cd dox; make

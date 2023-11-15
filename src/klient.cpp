@@ -160,7 +160,7 @@ bool ChangeState(Scene &Scn) //GeomObject *pObj, AccessControl  *pAccCtrl)
 
 
 
-int klient()
+int klient(Configuration &rConfig)
 {
   cout << "Port: " << PORT << endl;
   Scene               Scn;
@@ -181,6 +181,12 @@ int klient()
 "AddObj Name=Podstawa2.Ramie1 RGB=(200,0,0) Scale=(3,3,1) Shift=(0.5,0,0) RotXYZ_deg=(0,-45,0) Trans_m=(4,0,0)\n"
 "AddObj Name=Podstawa2.Ramie1.Ramie2 RGB=(100,200,0) Scale=(2,2,1) Shift=(0.5,0,0) RotXYZ_deg=(0,-45,0) Trans_m=(3,0,0)\n";
 
+
+  // std::vector<Cube> Cubes = rConfig.getCubes();
+  // for (int i = 0; i<size(Cubes); i++)
+  // {
+  //   cout << "Kostka nr: " << i << " Name: " << Cubes[i].getName() << " Atributes: " << endl;
+  // }
 
   cout << "Konfiguracja:" << endl;
   cout << sConfigCmds << endl;

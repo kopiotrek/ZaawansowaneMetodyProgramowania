@@ -1,7 +1,7 @@
-#include "toolbox.hh"
+#include "Configuration.hh"
 
 
-void toolbox::printPluginInfo( AbstractInterp4Command* pCmd ){
+void Configuration::printPluginInfo( AbstractInterp4Command* pCmd ){
 	cout << endl;
 	cout << pCmd->GetCmdName() << endl;
 	cout << endl;
@@ -11,7 +11,7 @@ void toolbox::printPluginInfo( AbstractInterp4Command* pCmd ){
 	cout << endl;
 }
 
-void toolbox::addLib( string name ){
+void Configuration::addLib( string name ){
 	string file = name;
 	shared_ptr<LibInterface> libp( new LibInterface(file.c_str()) );
 	int p = name.find('4')+1; 
@@ -19,7 +19,7 @@ void toolbox::addLib( string name ){
 	libs[name.substr(p,k)] = libp;
 }
 
-void toolbox::addLibs( vector<string> names ){
+void Configuration::addLibs( vector<string> names ){
 	for( string name: names  )
 		addLib(name);
 }

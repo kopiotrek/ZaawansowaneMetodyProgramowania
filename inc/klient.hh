@@ -14,6 +14,7 @@
 #include <vector>
 #include "AccessControl.hh"
 #include "Port.hh"
+#include "Configuration.hh"
 
 
 using namespace std;
@@ -238,7 +239,7 @@ bool OpenConnection(int &rSocket);
  */
 bool ChangeState(Scene &Scn); //GeomObject *pObj, AccessControl  *pAccCtrl)
 
-int klient();
+int klient(Configuration &rConfig);
 
 
 #endif
