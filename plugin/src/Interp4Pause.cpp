@@ -28,7 +28,7 @@ AbstractInterp4Command* CreateCmd(void)
 /*!
  *
  */
-Interp4Pause::Interp4Pause(): _Speed_mmS(0)
+Interp4Pause::Interp4Pause(): _Time_ms(0)
 {}
 
 
@@ -40,7 +40,7 @@ void Interp4Pause::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " " << _Speed_mmS  << " 10  2" << endl;
+  cout << GetCmdName() << " " << _Time_ms  << endl;
 }
 
 
@@ -76,6 +76,7 @@ bool Interp4Pause::ReadParams(std::istream& Strm_CmdsList)
   /*
    *  Tu trzeba napisać odpowiedni kod.
    */
+  Strm_CmdsList >> _Time_ms;
   return true;
 }
 

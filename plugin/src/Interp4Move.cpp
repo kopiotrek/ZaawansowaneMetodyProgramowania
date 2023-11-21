@@ -28,8 +28,9 @@ AbstractInterp4Command* CreateCmd(void)
 /*!
  *
  */
-Interp4Move::Interp4Move(): _Speed_mmS(0), _Distance_mm(0)
+Interp4Move::Interp4Move(): _Object_s(""), _Speed_mmS(0), _Distance_mm(0)
 {}
+
 
 
 /*!
@@ -40,7 +41,7 @@ void Interp4Move::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " " << "nazwa_obiektu"  << _Speed_mmS << _Distance_mm << endl;
+  cout << GetCmdName() << " " << _Object_s  << _Speed_mmS << _Distance_mm << endl;
 }
 
 
@@ -73,9 +74,9 @@ bool Interp4Move::ExecCmd( AbstractScene      &rScn,
  */
 bool Interp4Move::ReadParams(std::istream& Strm_CmdsList)
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
+  Strm_CmdsList >> _Object_s;
+  Strm_CmdsList >> _Speed_mmS;
+  Strm_CmdsList >> _Distance_mm;
   return true;
 }
 
@@ -94,5 +95,5 @@ AbstractInterp4Command* Interp4Move::CreateCmd()
  */
 void Interp4Move::PrintSyntax() const
 {
-  cout << "   Move  nazwa_obiektu  szybkosc[m/s]  dlugosc_drogi[m]" << endl;
+  cout << "   Move  nazwa_obiektu  szybkosc[mm/s]  dlugosc_drogi[mm]" << endl;
 }

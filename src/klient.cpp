@@ -93,7 +93,7 @@ bool OpenConnection(int &rSocket)
   bzero((char *)&DaneAdSerw, sizeof(DaneAdSerw));
 
   DaneAdSerw.sin_family = AF_INET;
-  DaneAdSerw.sin_addr.s_addr = inet_addr("127.0.0.1");
+  DaneAdSerw.sin_addr.s_addr = inet_addr("127.1");
   DaneAdSerw.sin_port = htons(PORT);
 
   rSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -142,7 +142,7 @@ bool ChangeState(Scene &Scn) // GeomObject *pObj, AccessControl  *pAccCtrl)
     }
     Scn.MarkChange();
     Scn.UnlockAccess();
-    usleep(300000);
+    usleep(3);
   }
   return true;
 }
@@ -151,6 +151,7 @@ int klient(Configuration &rConfig)
 {
   cout << "Port: " << PORT << endl;
   Scene Scn;
+  Scn.
   int Socket4Sending;
 
   if (!OpenConnection(Socket4Sending))
@@ -178,34 +179,37 @@ int klient(Configuration &rConfig)
   {
     addObjCmd += "AddObj Name=" + Cubes[i].getName();
     std::vector<Vector3D> attr = Cubes[i].getAttributes();
-    for (int j = 0; j < 5; j++)
+    for (int j = 0; j < 4; j++)
     {
       addObjCmd += AttrNames[j];
       addObjCmd += std::to_string(attr[j][0]) + ",";
       addObjCmd += std::to_string(attr[j][1]) + ",";
       addObjCmd += std::to_string(attr[j][2]);
     }
+    addObjCmd += AttrNames[4];
+    addObjCmd += int(attr[4][0]) + ",";
+    addObjCmd += int(attr[4][1]) + ",";
+    addObjCmd += int(attr[4][2]);
     addObjCmd += ")\n";
     Commands.push_back(addObjCmd);
     // addObjCmd="";
   }
-
  const char* charPtr = addObjCmd.c_str();
-   cout << "Konfiguracja:" << endl;
+//  const char* test = "AddObj Name=Podstawa1   Scale=(4.000000,2.000000,1.000000) RGB=(20,200,200) Shift=(0.500000,0.000000,0.000000)  RotXYZ_deg=(0.000000,-45.000000,20.000000) Trans_m=(-1.000000,3.000000,0.000000)\n";
+  cout << "Konfiguracja:" << endl;
   cout << charPtr << endl;
 
 
   Send(Socket4Sending, charPtr);
-
   cout << "Akcja:" << endl;
   for (GeomObject &rObj : Scn._Container4Objects)
   {
     usleep(20000);
     ChangeState(Scn);
     Scn.MarkChange();
-    usleep(100000);
+    usleep(1);
   }
-  usleep(100000);
+  usleep(1);
 
   //-------------------------------------
   // Należy pamiętać o zamknięciu połączenia.

@@ -26,7 +26,15 @@ class Interp4Set: public AbstractInterp4Command {
    *  do przechowywania wartości parametrów danego polecenia.
    *  Ponieżej zdefiniowane jest tylko jedno pole jako przykład.
    */
-  double  _Speed_mmS;
+    std::string _Objekt_s;
+    double _Wsp_x;
+    double _Wsp_y;
+    double _Wsp_z;
+    double _Angle_x;
+    double _Angle_y;
+    double _Angle_z;
+  
+  
  public:
   /*!
    * \brief
