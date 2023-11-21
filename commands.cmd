@@ -1,11 +1,21 @@
-#define ROTATE_SPEED 30
+#define ROTATE_SPEED     30
 /*
-* Przykładowy zestaw poleceń
-*/
-Set Ob_A 2 0 3 30 10 0 // Polozenie obiektu A
-Set Ob_B 10 10 3 0 0 20 // Polozenie obiektu B
-Rotate Ob_B OY ROTATE_SPEED 40
-Pause 1000 /* Zawieszenie dziaªania na 1 sek. */
-Move Ob_A 10 10
-Rotate Ob_B OZ ROTATE_SPEED 60
-Move Ob_B 10 20
+ *  Przykładowy zestaw poleceń
+ */
+  BEGIN_PARALLEL_ACTIONS
+  Set   Podstawa 2 0 30    // Polozenie obiektu A 
+  Set   Podstawa.Ramie1 10 10 0   // Polozenie obiektu B
+  END_PARALLEL_ACTIONS
+  BEGIN_PARALLEL_ACTIONS
+  Rotate Podstawa ROTATE_SPEED 40
+  END_PARALLEL_ACTIONS
+  BEGIN_PARALLEL_ACTIONS
+  Pause 1000 /* Zawieszenie na 1 sek. */
+  END_PARALLEL_ACTIONS
+  BEGIN_PARALLEL_ACTIONS
+  Move  Podstawa.Ramie1.Ramie2  10 10
+  END_PARALLEL_ACTIONS
+  BEGIN_PARALLEL_ACTIONS
+  Rotate Podstawa ROTATE_SPEED 60 /* Rotate i Move wykonywane razem */
+  Move  Podstawa 10 20            /* powoduja jazde po luku         */
+  END_PARALLEL_ACTIONS

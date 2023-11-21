@@ -22,7 +22,7 @@ class Sender
 
 public:
   
-    Sender(int Socket, Scene *pScn) : _Socket(Socket), _pScn(pScn) {}
+    Sender(Scene *pScn) : _pScn(pScn) {}
 
     ~Sender();
 
