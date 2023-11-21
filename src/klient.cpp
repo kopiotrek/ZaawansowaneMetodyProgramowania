@@ -150,12 +150,12 @@
 
 int klient(Configuration &Config)
 {
+  Configuration Config;
   Reader reader;
-  // Set4LibInterfaces handler;
-  AbstractInterp4Command *command;
+  Set4LibInterfaces handler;
+  Interp4Command *command;
   std::istringstream stream;
   std::vector<std::thread> threads;
-  
   reader.init("wykonaj.cmd");
 
   if (!reader.ReadFile("config/config.xml", Config))
@@ -168,28 +168,30 @@ int klient(Configuration &Config)
   if (!sender.OpenConnection())
     return 1;
 
+  handler.init(Config.lib_vector);
   std::thread Thread4Sending(&Sender::Watching_and_Sending, &sender);
   std::string key;
   reader.execPreprocesor(stream);
   while (stream >> key)
   {
-    command = Config.libs.find(key);
+    command = handler.execute(key);
     
-    if (command != nullptr)
+    if (handler.isParallel() && command != nullptr)
     {
       command->ReadParams(stream);
-      threads.push_back(std::thread(&AbstractInterp4Command::ExecCmd, command, &scene));
+      threads.push_back(std::thread(&Interp4Command::ExecCmd, command, &scene));
     
     }
-    // else if (!handler.isParallel())
-    // {
-    //   for (int i = 0; i < threads.size(); ++i)
-    //   {
-    //     if (threads[i].joinable())
-    //       threads[i].join();
-    //   }
-    //   threads.clear();
+    else if (!handler.isParallel())
+    {
+      for (int i = 0; i < threads.size(); ++i)
+      {
+        if (threads[i].joinable())
+          threads[i].join();
+      }
+      threads.clear();
     }
+  }
 
  
 

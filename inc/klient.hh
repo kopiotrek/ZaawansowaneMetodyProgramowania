@@ -18,6 +18,7 @@
 #include "Configuration.hh"
 #include "Reader.hh"
 #include "Sender.hh"
+#include "Set4LibInterfaces.hh"
 #include "AbstractInterp4Command.hh"
 
 

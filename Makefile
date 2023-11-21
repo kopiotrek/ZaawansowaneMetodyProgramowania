@@ -21,8 +21,8 @@ LDFLAGS=-Wall
 
 
 
-interp: obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Cube.o obj/Scene.o obj/xmlhandler.o obj/Reader.o obj/Sender.o 
-	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Cube.o obj/Scene.o obj/xmlhandler.o obj/Reader.o obj/Sender.o  -ldl -lxerces-c
+interp: obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Cube.o obj/Scene.o obj/xmlhandler.o obj/Reader.o obj/Sender.o obj/Set4LibInterfaces.o 
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Cube.o obj/Scene.o obj/xmlhandler.o obj/Reader.o obj/Sender.o obj/Set4LibInterfaces.o  -ldl -lxerces-c
 
 obj/main.o: src/main.cpp
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
@@ -53,6 +53,9 @@ obj/Reader.o: src/Reader.cpp inc/Reader.hh
 
 obj/Sender.o: src/Sender.cpp inc/Sender.hh
 	g++ -c ${CPPFLAGS} -o obj/Sender.o src/Sender.cpp
+
+obj/Set4LibInterfaces.o: src/Set4LibInterfaces.cpp inc/Set4LibInterfaces.hh
+	g++ -c ${CPPFLAGS} -o obj/Set4LibInterfaces.o src/Set4LibInterfaces.cpp
 
 doc:
 	cd dox; make

@@ -28,7 +28,7 @@ AbstractInterp4Command* CreateCmd(void)
 /*!
  *
  */
-Interp4Move::Interp4Move(): _Object_s(""), _Speed_mmS(0), _Distance_mm(0)
+Interp4Move::Interp4Move(): _Name(""), _Speed_mmS(0), _Distance_mm(0)
 {}
 
 
@@ -41,7 +41,7 @@ void Interp4Move::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " " << _Object_s  << _Speed_mmS << _Distance_mm << endl;
+  cout << GetCmdName() << " " << _Name  << _Speed_mmS << _Distance_mm << endl;
 }
 
 
@@ -60,17 +60,17 @@ const char* Interp4Move::GetCmdName() const
 bool Interp4Move::ExecCmd(Scene *scene) const
 {
   MobileObj *obj = scene->FindMobileObj(_Name.c_str());
-  Vector3D position = obj->GetPositoin_m();
+  Vector3D position = obj->GetPosition_m();
   double roll= obj->GetAng_Roll_deg();
   double pitch= obj->GetAng_Pitch_deg();
   double yaw = obj->GetAng_Yaw_deg();
 
-  double time = _Distance_m / _Speed_mmS;
+  double time = _Distance_mm / _Speed_mmS;
   double steps = (int)(time * N);
 
   double x_ = 0, y_ = 0, z_ = 0;
   Vector3D move;
-  double step_distance = _Distance_m / steps; 
+  double step_distance = _Distance_mm / steps; 
   double step = 0.0333333 * 1000000;            
 
 
@@ -113,7 +113,7 @@ bool Interp4Move::ReadParams(std::istream& Strm_CmdsList)
     return 1;
   }
 
-  if (!(Strm_CmdsList >> _Distance_m))
+  if (!(Strm_CmdsList >> _Distance_mm))
   {
     std::cout << "Blad wczytywania odleglosci" << std::endl;
     return 1;

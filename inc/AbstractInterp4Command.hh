@@ -9,9 +9,12 @@
  *  Wyznacza ona niezbędny interfejs klas pochodnych.
  */
 
+// Liczba kroków animacji
+#define N 30 
 
 #include "Scene.hh"
 #include "AbstractComChannel.hh"
+#include <unistd.h>
 
 
  /*!
