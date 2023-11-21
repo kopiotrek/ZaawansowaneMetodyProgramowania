@@ -7,10 +7,6 @@
 #endif
 
 #include "AbstractInterp4Command.hh"
-#include "Scene.hh"
-#include "MobileObj.hh"
-#include "AccessControl.hh"
-
 
 /*!
  * \file

@@ -86,7 +86,7 @@ bool Sender::OpenConnection()
 std::string Sender::getUpdateInstruction(MobileObj *obj) const
 {
     std::string tmp = "UpdateObj";
-    Vector3D pos = obj->GetPositoin_m();
+    Vector3D pos = obj->GetPosition_m();
     Vector3D sca = obj->getScale();
     Vector3D tra = obj->getTranslation();
     Vector3D rgb = obj->getRgb();
@@ -103,7 +103,7 @@ std::string Sender::getUpdateInstruction(MobileObj *obj) const
 std::string Sender::getAddInstruction(MobileObj *obj) const
 {
     std::string tmp = "AddObj";
-    Vector3D pos = obj->GetPositoin_m();
+    Vector3D pos = obj->GetPosition_m();
     Vector3D sca = obj->getScale();
     Vector3D tra = obj->getTranslation();
     Vector3D rgb = obj->getRgb();

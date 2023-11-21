@@ -4,8 +4,10 @@ bool Set4LibInterfaces::init(std::vector<std::string> lib_vector)
 {
     for (int i = 0; i < lib_vector.size(); i++)
     {
-        std::shared_ptr<LibInterface> tmp_library = std::make_shared<LibInterface>(("libs/" + lib_vector[i]));
+        std::shared_ptr<LibInterface> tmp_library = std::make_shared<LibInterface>();
+    
 
+        tmp_library->init("libs/" + lib_vector[i]);
         std::string command_name = lib_vector[i].substr(10, lib_vector[i].length() - 13);
         std::cout << command_name << std::endl;
 
@@ -42,7 +44,7 @@ AbstractInterp4Command *Set4LibInterfaces::execute(std::string key)
         }
 
         handle = iterator->second;
-        command = handle->pCreateCmd();
+        command = handle->CreateCmd();
     }
   
     return command;

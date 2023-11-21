@@ -148,12 +148,12 @@
 //   return true;
 // }
 
-int klient(Configuration &Config)
+int klient()
 {
   Configuration Config;
   Reader reader;
   Set4LibInterfaces handler;
-  Interp4Command *command;
+  AbstractInterp4Command *command;
   std::istringstream stream;
   std::vector<std::thread> threads;
   reader.init("wykonaj.cmd");
@@ -163,47 +163,47 @@ int klient(Configuration &Config)
     return 1;
   }
 
-  Scene scene(Config);
-  Sender sender(&scene);
-  if (!sender.OpenConnection())
-    return 1;
+  // Scene scene(Config);
+  // Sender sender(&scene);
+  // if (!sender.OpenConnection())
+  //   return 1;
 
-  handler.init(Config.lib_vector);
-  std::thread Thread4Sending(&Sender::Watching_and_Sending, &sender);
-  std::string key;
-  reader.execPreprocesor(stream);
-  while (stream >> key)
-  {
-    command = handler.execute(key);
+  // handler.init(Config.lib_vector);
+  // std::thread Thread4Sending(&Sender::Watching_and_Sending, &sender);
+  // std::string key;
+  // reader.execPreprocesor(stream);
+  // while (stream >> key)
+  // {
+  //   command = handler.execute(key);
     
-    if (handler.isParallel() && command != nullptr)
-    {
-      command->ReadParams(stream);
-      threads.push_back(std::thread(&Interp4Command::ExecCmd, command, &scene));
+  //   if (handler.isParallel() && command != nullptr)
+  //   {
+  //     command->ReadParams(stream);
+  //     threads.push_back(std::thread(&AbstractInterp4Command::ExecCmd, command, &scene));
     
-    }
-    else if (!handler.isParallel())
-    {
-      for (int i = 0; i < threads.size(); ++i)
-      {
-        if (threads[i].joinable())
-          threads[i].join();
-      }
-      threads.clear();
-    }
-  }
+  //   }
+  //   else if (!handler.isParallel())
+  //   {
+  //     for (int i = 0; i < threads.size(); ++i)
+  //     {
+  //       if (threads[i].joinable())
+  //         threads[i].join();
+  //     }
+  //     threads.clear();
+  //   }
+  // }
 
  
 
-  sender.Send("Close\n");
-  sender.CancelCountinueLooping();
-  for (int i = 0; i < threads.size(); ++i)
-  {
+  // sender.Send("Close\n");
+  // sender.CancelCountinueLooping();
+  // for (int i = 0; i < threads.size(); ++i)
+  // {
  
-    if (threads[i].joinable())
-      threads[i].join();
-  }
-  Thread4Sending.join();
+  //   if (threads[i].joinable())
+  //     threads[i].join();
+  // }
+  // Thread4Sending.join();
 
   return 0;
 }

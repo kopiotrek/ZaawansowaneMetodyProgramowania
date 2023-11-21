@@ -21,8 +21,8 @@ LDFLAGS=-Wall
 
 
 
-interp: obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Cube.o obj/Scene.o obj/xmlhandler.o obj/Reader.o obj/Sender.o obj/Set4LibInterfaces.o 
-	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Cube.o obj/Scene.o obj/xmlhandler.o obj/Reader.o obj/Sender.o obj/Set4LibInterfaces.o  -ldl -lxerces-c
+interp: obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Scene.o obj/xmlhandler.o obj/Reader.o obj/Sender.o obj/Set4LibInterfaces.o 
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/xmlinterp.o obj/klient.o obj/Configuration.o obj/Scene.o obj/xmlhandler.o obj/Reader.o obj/Sender.o obj/Set4LibInterfaces.o  -ldl -lxerces-c
 
 obj/main.o: src/main.cpp
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
@@ -41,9 +41,6 @@ obj/Configuration.o: src/Configuration.cpp inc/Configuration.hh
 
 obj/xmlhandler.o: src/xmlhandler.cpp inc/xmlhandler.hh
 	g++ -c ${CPPFLAGS} -o obj/xmlhandler.o src/xmlhandler.cpp
-
-obj/Cube.o: src/Cube.cpp inc/Cube.hh
-	g++ -c ${CPPFLAGS} -o obj/Cube.o src/Cube.cpp
 
 obj/Scene.o: src/Scene.cpp inc/Scene.hh
 	g++ -c ${CPPFLAGS} -o obj/Scene.o src/Scene.cpp

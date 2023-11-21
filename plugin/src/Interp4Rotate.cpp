@@ -61,7 +61,7 @@ bool Interp4Rotate::ExecCmd(Scene *scene) const
   MobileObj *obj = scene->FindMobileObj(_Name.c_str());
   double yaw = obj->GetAng_Yaw_deg();
 
-  double time = _Angle / _Speed_mmS; 
+  double time = _Angle / _Ang_speed; 
   double steps = (int)(time * N);
   double step_distance = _Angle / steps; 
   double step= 0.0333333;            
@@ -97,7 +97,7 @@ bool Interp4Rotate::ReadParams(std::istream& Strm_CmdsList)
     return 1;
   }
 
-  if (!(Strm_CmdsList >> _Speed_mmS))
+  if (!(Strm_CmdsList >> _Ang_speed))
   {
     std::cout << "Blad wczytywania predkosci katowej obiektu" << std::endl;
     return 1;

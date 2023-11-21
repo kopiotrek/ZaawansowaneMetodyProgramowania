@@ -92,19 +92,19 @@ bool Interp4Set::ReadParams(std::istream& Strm_CmdsList)
     return 1;
   }
 
-  if (!(Strm_CmdsList >> _X))
+  if (!(Strm_CmdsList >> _Wsp_x))
   {
     std::cout << "Blad wczytywania wspolrzednej x" << std::endl;
     return 1;
   }
 
-  if (!(Strm_CmdsList >> _Y))
+  if (!(Strm_CmdsList >> _Wsp_y))
   {
     std::cout << "Blad wczytywania wspolrzednej y" << std::endl;
     return 1;
   }
 
-  if (!(Strm_CmdsList >> _Z))
+  if (!(Strm_CmdsList >> _Wsp_z))
   {
     std::cout << "Blad wczytywania kata" << std::endl;
     return 1;

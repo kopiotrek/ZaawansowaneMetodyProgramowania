@@ -13,7 +13,6 @@
 #define N 30 
 
 #include "Scene.hh"
-#include "AbstractComChannel.hh"
 #include <unistd.h>
 
 

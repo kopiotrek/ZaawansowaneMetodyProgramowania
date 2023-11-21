@@ -59,7 +59,7 @@ const char* Interp4Pause::GetCmdName() const
 bool Interp4Pause::ExecCmd(Scene *scene) const
 {
   scene->LockAccess();
-  usleep(time_ms * 1000);
+  usleep(_Time_ms * 1000);
   scene->UnlockAccess();
   return true;
 }
@@ -71,7 +71,7 @@ bool Interp4Pause::ExecCmd(Scene *scene) const
  */
 bool Interp4Pause::ReadParams(std::istream& Strm_CmdsList)
 {
-  if (!(Strm_CmdsList >> time_ms))
+  if (!(Strm_CmdsList >> _Time_ms))
   {
     std::cout << "Blad wczytywania czasu" << std::endl;
     return 1;

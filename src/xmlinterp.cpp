@@ -48,29 +48,29 @@ void XMLInterp4Config::endDocument()
  * Analizuje atrybuty elementu XML \p "Lib" i odpowiednio je interpretuje.
  * \param[in] rAttrs - atrybuty elementu XML \p "Lib".
  */
-void XMLInterp4Config::ProcessLibAttrs(const xercesc::Attributes  &rAttrs)
-{
- if (rAttrs.getLength() != 1) {
-      cerr << "Zla ilosc atrybutow dla \"Lib\"" << endl;
-      exit(1);
- }
+void XMLInterp4Config::ProcessLibAttrs(const xercesc::Attributes &rAttrs) {
+  if (rAttrs.getLength() != 1) {
+    cerr << "Zla ilosc atrybutow dla \"Lib\"" << endl;
+    exit(1);
+  }
 
- char* sParamName = xercesc::XMLString::transcode(rAttrs.getQName(0));
+  char *sParamName = xercesc::XMLString::transcode(rAttrs.getQName(0));
 
- if (strcmp(sParamName,"Name")) {
-      cerr << "Zla nazwa atrybutu dla Lib" << endl;
-      exit(1);
- }         
+  if (strcmp(sParamName, "Name")) {
+    cerr << "Zla nazwa atrybutu dla Lib" << endl;
+    exit(1);
+  }
 
- XMLSize_t  Size = 0;
- char* sLibName = xercesc::XMLString::transcode(rAttrs.getValue(Size));
+  XMLSize_t Size = 0;
+  char *sLibName = xercesc::XMLString::transcode(rAttrs.getValue(Size));
 
- cout << "  Nazwa biblioteki: " << sLibName << endl;
+  cout << "  Nazwa biblioteki: " << sLibName << endl;
 
- conf->addLib(sLibName);
 
- xercesc::XMLString::release(&sParamName);
- xercesc::XMLString::release(&sLibName);
+  this->conf->libs.push_back(sLibName);
+
+  xercesc::XMLString::release(&sParamName);
+  xercesc::XMLString::release(&sLibName);
 }
 
 
