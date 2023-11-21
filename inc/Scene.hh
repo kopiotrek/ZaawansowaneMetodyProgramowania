@@ -5,9 +5,7 @@
 #include <string>
 #include "AccessControl.hh"
 #include "Configuration.hh"
-
-
-#include "AbstractMobileObj.hh"
+#include "MobileObj.hh"
 
 /*!
  * \file 

@@ -1,5 +1,6 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include "xmlinterp.hh"
+#include "MobileObjConfig.hh"
 #include <cassert>
 #include <sstream>
 #include <cstdlib>
@@ -80,63 +81,98 @@ void XMLInterp4Config::ProcessLibAttrs(const xercesc::Attributes  &rAttrs)
  */
 void XMLInterp4Config::ProcessCubeAttrs(const xercesc::Attributes  &rAttrs)
 {
- if (rAttrs.getLength() < 6) {
-      cerr << "Zla ilosc atrybutow dla \"Cube\"" << endl;
-      exit(1);
- }
+  int attributes_number = rAttrs.getLength();
+  
+  std::vector<std::vector<std::string>> sValue(6,
+                                               std::vector<std::string>(2, ""));
 
- /*
-  *  Tutaj pobierane sa nazwy pierwszego i drugiego atrybuty.
-  *  Sprawdzamy, czy na pewno jest to Name i Value.
-  */
-
- 
-
- char* sName_Name = xercesc::XMLString::transcode(rAttrs.getQName(0));
- char* sValue_Name = xercesc::XMLString::transcode(rAttrs.getValue((XMLSize_t)0));
-
-  string Name = sValue_Name;
-
-  xercesc::XMLString::release(&sName_Name);
-  xercesc::XMLString::release(&sValue_Name);
-
-  vector<Vector3D> Attr;
-
-  char* s_Attr[5];
-  for( int i=1; i<6; i++ ){
-    char* sName = xercesc::XMLString::transcode(rAttrs.getQName(i));
-    string tmp = sName;
-    int ind;
-    if( tmp == "Shift" ) ind = 0;
-    if( tmp == "Scale" ) ind = 1;
-    if( tmp == "RotXYZ_deg" ) ind = 2;
-    if( tmp == "Trans_m" ) ind = 3;
-    if( tmp == "RGB" ) ind = 4;
-
-    s_Attr[ind] = xercesc::XMLString::transcode(rAttrs.getValue((XMLSize_t)i));
-
-    xercesc::XMLString::release(&sName);
+  if (attributes_number < 1) {
+    cerr << "Zla ilosc atrybutow dla \"Cube\"" << endl;
+    exit(1);
   }
 
-  for( int i=0; i<5; i++ ){
+  /*
+   *  Tutaj pobierane sa nazwy pierwszego i drugiego atrybuty.
+   *  Sprawdzamy, czy na pewno jest to Name i Value.
+   */
 
-    istringstream IStrm;
+  for (int i = 0; i < attributes_number; i++) {
+    std::string attribute = xercesc::XMLString::transcode(rAttrs.getQName(i));
+    if (attribute == "Name") {
+      sValue[0][0] = xercesc::XMLString::transcode(rAttrs.getQName(i));
+      sValue[0][1] = xercesc::XMLString::transcode(rAttrs.getValue(i));
+    } else if (attribute == "Shift") {
+
+      sValue[1][0] = xercesc::XMLString::transcode(rAttrs.getQName(i));
+      sValue[1][1] = xercesc::XMLString::transcode(rAttrs.getValue(i));
+    } else if (attribute == "Scale") {
+      sValue[2][0] = xercesc::XMLString::transcode(rAttrs.getQName(i));
+      sValue[2][1] = xercesc::XMLString::transcode(rAttrs.getValue(i));
+    } else if (attribute == "RotXYZ_deg") {
+      sValue[3][0] = xercesc::XMLString::transcode(rAttrs.getQName(i));
+      sValue[3][1] = xercesc::XMLString::transcode(rAttrs.getValue(i));
+    } else if (attribute == "Trans_m") {
+      sValue[4][0] = xercesc::XMLString::transcode(rAttrs.getQName(i));
+      sValue[4][1] = xercesc::XMLString::transcode(rAttrs.getValue(i));
+    } else if (attribute == "RGB") {
+      sValue[5][0] = xercesc::XMLString::transcode(rAttrs.getQName(i));
+      sValue[5][1] = xercesc::XMLString::transcode(rAttrs.getValue(i));
+    }
+  }
+
+
+
  
-    IStrm.str(s_Attr[i]);
-    Vector3D tmp;
+  cout << " Atrybuty:" << endl;
 
+
+  for (int i = 0; i < 6; i++) {
+    cout << "     " << sValue[i][0] << " = \"" << sValue[i][1] << "\"" << endl;
+  }
+
+  
+  istringstream IStrm;
+  Vector3D tmp;
+  MobileObjConfig object_config;
+
+  object_config.name = sValue[0][1];
+
+  for (int i = 1; i < 6; i++) {
+    IStrm.str(sValue[i][1]);
     IStrm >> tmp[0] >> tmp[1] >> tmp[2];
+    switch (i) {
+    case 1:
+      object_config.shift = tmp;
+  
+      break;
+    case 2:
+      object_config.scale = tmp;
+      
+      break;
+    case 3:
+      object_config.rot = tmp;
+     
+      break;
+    case 4:
+      object_config.trans = tmp;
+   
+      break;
+    case 5:
+      object_config.rgb = tmp;
+    
+      break;
 
-    Attr.push_back( tmp );
+    default:
+      break;
+    }
+    cout << " Czytanie wartosci OK!!!" << endl;
+    if (i > 0) {
+      cout << sValue[i][0] << "     " << tmp[0] << "  " << tmp[1] << "  "
+           << tmp[2] << endl;
+    }
+    IStrm.clear();
   }
-
-  for( int i=1; i<6; i++ ){
-    char* sValue = xercesc::XMLString::transcode(rAttrs.getValue((XMLSize_t)i));
-    xercesc::XMLString::release(&sValue);
-  }
-
-
-  conf->addMobObj( MobileObj( &Name, &Attr ) );
+  conf->_ObjectsConfig.push_back(object_config);
 }
 
 

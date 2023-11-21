@@ -28,7 +28,7 @@ AbstractInterp4Command* CreateCmd(void)
 /*!
  *
  */
-Interp4Set::Interp4Set(): _Objekt_s(""), _Wsp_x(0), _Wsp_y(0), _Wsp_z(0), _Angle_x(0), _Angle_y(0), _Angle_z(0)
+Interp4Set::Interp4Set(): _Name(""), _Wsp_x(0), _Wsp_y(0), _Wsp_z(0), _Angle_x(0), _Angle_y(0), _Angle_z(0)
 {}
 
 
@@ -40,7 +40,7 @@ void Interp4Set::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " " << _Objekt_s  << _Wsp_x << _Wsp_y << _Angle_x << _Angle_y << _Angle_z << endl;
+  cout << GetCmdName() << " " << _Name  << _Wsp_x << _Wsp_y << _Angle_x << _Angle_y << _Angle_z << endl;
 }
 
 
@@ -65,14 +65,12 @@ bool Interp4Set::ExecCmd(Scene *scene) const
   _position[1] = _Wsp_y;
   _position[2] = _Wsp_z;
   
-  _Angle_x = obj->GetAng_Roll_deg;
-  _Angle_y = obj->GetAng_Pitch_deg;
-  _Angle_z = obj->GetAng_Yaw_deg;
-  
   scene->LockAccess();
 
   obj->SetPosition_m(_position);
-  obj->SetAng_Yaw_deg(_Z);
+  obj->SetAng_Roll_deg(_Angle_x);
+  obj->SetAng_Pitch_deg(_Angle_y);
+  obj->SetAng_Yaw_deg(_Angle_z);
 
   scene->MarkChange();
   scene->UnlockAccess();
@@ -88,15 +86,30 @@ bool Interp4Set::ReadParams(std::istream& Strm_CmdsList)
   /*
    *  Tu trzeba napisać odpowiedni kod.
    */
-  Strm_CmdsList >> _Objekt_s;
-  Strm_CmdsList >> _Wsp_x;
-  Strm_CmdsList >> _Wsp_y;
-  Strm_CmdsList >> _Wsp_z;
-  Strm_CmdsList >> _Angle_x;
-  Strm_CmdsList >> _Angle_y;
-  Strm_CmdsList >> _Angle_z;
+  if (!(Strm_CmdsList >> _Name))
+  {
+    std::cout << "Blad wczytywania nazwy obiektu" << std::endl;
+    return 1;
+  }
 
-  return true;
+  if (!(Strm_CmdsList >> _X))
+  {
+    std::cout << "Blad wczytywania wspolrzednej x" << std::endl;
+    return 1;
+  }
+
+  if (!(Strm_CmdsList >> _Y))
+  {
+    std::cout << "Blad wczytywania wspolrzednej y" << std::endl;
+    return 1;
+  }
+
+  if (!(Strm_CmdsList >> _Z))
+  {
+    std::cout << "Blad wczytywania kata" << std::endl;
+    return 1;
+  }
+  return 0;
 }
 
 

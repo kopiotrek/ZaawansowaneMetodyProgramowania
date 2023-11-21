@@ -56,16 +56,14 @@ const char* Interp4Pause::GetCmdName() const
 /*!
  *
  */
-bool Interp4Pause::ExecCmd( AbstractScene      &rScn, 
-                           const char         *sMobObjName,
-			   AbstractComChannel &rComChann
-			 )
+bool Interp4Pause::ExecCmd(Scene *scene) const
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
+  scene->LockAccess();
+  usleep(time_ms * 1000);
+  scene->UnlockAccess();
   return true;
 }
+
 
 
 /*!
@@ -73,11 +71,12 @@ bool Interp4Pause::ExecCmd( AbstractScene      &rScn,
  */
 bool Interp4Pause::ReadParams(std::istream& Strm_CmdsList)
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
-  Strm_CmdsList >> _Time_ms;
-  return true;
+  if (!(Strm_CmdsList >> time_ms))
+  {
+    std::cout << "Blad wczytywania czasu" << std::endl;
+    return 1;
+  }
+  return 0;
 }
 
 

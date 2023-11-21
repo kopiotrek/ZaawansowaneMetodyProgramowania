@@ -7,7 +7,7 @@
 #include <memory>
 #include <map>
 #include "AbstractInterp4Command.hh"
-#include "AbstractScene.hh"
+#include "Scene.hh"
 #include "AbstractComChannel.hh"
 
 

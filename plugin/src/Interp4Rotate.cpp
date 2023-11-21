@@ -28,7 +28,7 @@ AbstractInterp4Command* CreateCmd(void)
 /*!
  *
  */
-Interp4Rotate::Interp4Rotate(): _Objekt_s(""), _Ang_speed(0), _Angle(0)
+Interp4Rotate::Interp4Rotate(): _Name(""), _Ang_speed(0), _Angle(0)
 {}
 
 
@@ -40,7 +40,7 @@ void Interp4Rotate::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " " << _Objekt_s  << _Ang_speed << _Angle << endl;
+  cout << GetCmdName() << " " << _Name  << _Ang_speed << _Angle << endl;
 }
 
 
@@ -56,14 +56,29 @@ const char* Interp4Rotate::GetCmdName() const
 /*!
  *
  */
-bool Interp4Rotate::ExecCmd( AbstractScene      &rScn, 
-                           const char         *sMobObjName,
-			   AbstractComChannel &rComChann
-			 )
+bool Interp4Rotate::ExecCmd(Scene *scene) const
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
+  MobileObj *obj = scene->FindMobileObj(_Name.c_str());
+  double yaw = obj->GetAng_Yaw_deg();
+
+  double time = _Angle / _Speed_mmS; 
+  double steps = (int)(time * N);
+  double step_distance = _Angle / steps; 
+  double step= 0.0333333;            
+
+
+  double yaw_ = 0;
+
+  for (int i = 0; i < steps; ++i)
+  {
+    scene->LockAccess();
+    
+    yaw_ += step_distance;
+    obj->SetAng_Yaw_deg(yaw + yaw_);
+    scene->MarkChange();
+    scene->UnlockAccess();
+    usleep(step);
+  }
   return true;
 }
 
@@ -76,10 +91,24 @@ bool Interp4Rotate::ReadParams(std::istream& Strm_CmdsList)
   /*
    *  Tu trzeba napisać odpowiedni kod.
    */
-  Strm_CmdsList >> _Objekt_s;
-  Strm_CmdsList >> _Ang_speed;
-  Strm_CmdsList >> _Angle;
-  return true;
+  if (!(Strm_CmdsList >> _Name))
+  {
+    std::cout << "Blad wczytywania nazwy obiektu" << std::endl;
+    return 1;
+  }
+
+  if (!(Strm_CmdsList >> _Speed_mmS))
+  {
+    std::cout << "Blad wczytywania predkosci katowej obiektu" << std::endl;
+    return 1;
+  }
+
+  if (!(Strm_CmdsList >> _Angle))
+  {
+    std::cout << "Blad wczytywania kata" << std::endl;
+    return 1;
+  }
+  return 0;
 }
 
 

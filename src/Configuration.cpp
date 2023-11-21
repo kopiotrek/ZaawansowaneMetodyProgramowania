@@ -23,15 +23,3 @@ void Configuration::addLibs( vector<string> names ){
 	for( string name: names  )
 		addLib(name);
 }
-
-void Configuration::addMobObj( MobileObj obj ){
-    _MobileObjects.push_back(obj);
-}
-
-vector<MobileObj> Configuration::getMobObjs(){
-    return _MobileObjects;
-}
-
-map<string,shared_ptr<LibInterface>> Configuration::getLibraries(){
-	return libs;
-}
