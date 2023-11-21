@@ -24,12 +24,12 @@ void Configuration::addLibs( vector<string> names ){
 		addLib(name);
 }
 
-void Configuration::addCube( Cube obj ){
-    _Cubes.push_back(obj);
+void Configuration::addMobObj( MobileObj obj ){
+    _MobileObjects.push_back(obj);
 }
 
-vector<Cube> Configuration::getCubes(){
-    return _Cubes;
+vector<MobileObj> Configuration::getMobObjs(){
+    return _MobileObjects;
 }
 
 map<string,shared_ptr<LibInterface>> Configuration::getLibraries(){

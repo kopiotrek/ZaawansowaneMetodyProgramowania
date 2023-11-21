@@ -6,7 +6,11 @@
 # pragma implementation
 #endif
 
+
 #include "AbstractInterp4Command.hh"
+#include "Scene.hh"
+#include "MobileObj.hh"
+#include "AccessControl.hh"
 
 /*!
  * \file
@@ -26,7 +30,7 @@ class Interp4Set: public AbstractInterp4Command {
    *  do przechowywania wartości parametrów danego polecenia.
    *  Ponieżej zdefiniowane jest tylko jedno pole jako przykład.
    */
-    std::string _Objekt_s;
+    std::string _Name;
     double _Wsp_x;
     double _Wsp_y;
     double _Wsp_z;
@@ -68,9 +72,7 @@ class Interp4Set: public AbstractInterp4Command {
    * \retval true - operacja powiodła się,
    * \retval false - w przypadku przeciwnym.
    */
-  virtual bool ExecCmd( AbstractScene      &rScn, 
-                        const char         *sMobObjName,
-                        AbstractComChannel &rComChann ) override;
+  bool ExecCmd(Scene *scene) const;
   /*!
    * \brief Czyta wartości parametrów danego polecenia
    */

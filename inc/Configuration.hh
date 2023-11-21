@@ -1,7 +1,7 @@
 #ifndef CONFIGURATION_HH
 #define CONFIGURATION_HH
 
-#include "Cube.hh"
+#include "MobileObj.hh"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -20,17 +20,17 @@ using namespace std;
 class Configuration {
   
   // std::vector<std::string> _Libraries;
-  std::vector<Cube> _Cubes;
+  std::vector<MobileObj> _MobileObjects;
   map<string,shared_ptr<LibInterface>> libs;
 
 public:
   void addLibs( vector<string> names );
   void addLib( string name );
-  void addCube( Cube obj );
+  void addMobObj( MobileObj obj );
   void printPluginInfo( AbstractInterp4Command* pCmd );
   // std::vector<std::string> getLibraries();
   map<string,shared_ptr<LibInterface>> getLibraries();
-  std::vector<Cube> getCubes();
+  std::vector<MobileObj> getMobObjs();
   
 };
 

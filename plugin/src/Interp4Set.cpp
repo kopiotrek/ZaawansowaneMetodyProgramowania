@@ -56,16 +56,26 @@ const char* Interp4Set::GetCmdName() const
 /*!
  *
  */
-bool Interp4Set::ExecCmd( AbstractScene      &rScn, 
-                           const char         *sMobObjName,
-			   AbstractComChannel &rComChann
-			 )
+bool Interp4Set::ExecCmd(Scene *scene) const
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
+  MobileObj *obj = scene->FindMobileObj(_Name.c_str());
+  Vector3D position = obj->GetPosition_m();
+  Vector3D _position;
+  _position[0] = _Wsp_x;
+  _position[1] = _Wsp_y;
+  _position[2] = _Wsp_z;
   
-rScn.
+  _Angle_x = obj->GetAng_Roll_deg;
+  _Angle_y = obj->GetAng_Pitch_deg;
+  _Angle_z = obj->GetAng_Yaw_deg;
+  
+  scene->LockAccess();
+
+  obj->SetPosition_m(_position);
+  obj->SetAng_Yaw_deg(_Z);
+
+  scene->MarkChange();
+  scene->UnlockAccess();
   return true;
 }
 

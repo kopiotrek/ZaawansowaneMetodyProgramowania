@@ -136,7 +136,7 @@ void XMLInterp4Config::ProcessCubeAttrs(const xercesc::Attributes  &rAttrs)
   }
 
 
-  conf->addCube( Cube( Name, Attr ) );
+  conf->addMobObj( MobileObj( &Name, &Attr ) );
 }
 
 
