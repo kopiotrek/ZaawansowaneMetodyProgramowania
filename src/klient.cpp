@@ -150,39 +150,52 @@
 
 int klient()
 {
+  // Inicjalizacja obiektów i zmiennych
   Configuration Config;
   Reader reader;
-  Set4LibInterfaces handler;
+  Set4LibInterfaces lib_handler;
   AbstractInterp4Command *command;
   std::istringstream stream;
   std::vector<std::thread> threads;
+  
+  // Inicjalizacja czytnika komend
   reader.init("commands.cmd");
 
+  // Wczytanie pliku konfiguracyjnego
   if (!reader.ReadFile("config/config.xml", Config))
   {
     return 1;
   }
 
+  // Inicjalizacja sceny i wysyłanie
   Scene scene(Config);
   Sender sender(&scene);
   if (!sender.OpenConnection())
     return 1;
 
-  handler.init(Config.libs);
+  // Inicjalizacja interfejsów bibliotek dynamicznych
+  lib_handler.init(Config.libs);
+
+  // Wątek do obserwacji i wysyłania danych
   std::thread Thread4Sending(&Sender::Watching_and_Sending, &sender);
+  
   std::string key;
+
+  // Wczytywanie poleceń z pliku
   reader.execPreprocesor(stream);
   while (stream >> key)
   {
-    command = handler.execute(key);
-    
-    if (handler.isParallel() && command != nullptr)
+    // Wykonanie komendy zgodnie z interfejsem
+    command = lib_handler.execute(key);
+
+    // Obsługa komend równoległych
+    if (lib_handler.isParallel() && command != nullptr)
     {
       command->ReadParams(stream);
       threads.push_back(std::thread(&AbstractInterp4Command::ExecCmd, command, &scene));
-    
     }
-    else if (!handler.isParallel())
+    // Czekanie na zakończenie wątków, jeśli komendy nie są równoległe
+    else if (!lib_handler.isParallel())
     {
       for (int i = 0; i < threads.size(); ++i)
       {
@@ -193,13 +206,11 @@ int klient()
     }
   }
 
- 
-
+  // Zakończenie pracy i czekanie na zakończenie wątków
   sender.Send("Close\n");
   sender.CancelCountinueLooping();
   for (int i = 0; i < threads.size(); ++i)
   {
- 
     if (threads[i].joinable())
       threads[i].join();
   }

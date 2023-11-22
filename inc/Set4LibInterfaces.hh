@@ -17,7 +17,12 @@ private:
     bool parallel = false;
 
 public:
+    // Inicjalizuje interfejsy bibliotek dynamicznych na podstawie wektora nazw plików
     bool init(std::vector<std::string> lib_vector);
+
+    // Wykonuje komendę na podstawie nazwy
+    // Obsługuje komendy równoległe
+    // Zwraca wskaźnik do obiektu reprezentującego komendę
     AbstractInterp4Command *execute(std::string key);
     bool isParallel() { return parallel; }
 };
