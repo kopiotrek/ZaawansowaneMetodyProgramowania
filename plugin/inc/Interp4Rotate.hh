@@ -27,6 +27,7 @@ class Interp4Rotate: public AbstractInterp4Command {
    *  Ponieżej zdefiniowane jest tylko jedno pole jako przykład.
    */
     std::string _Name; 
+    std::string _Axis; 
     double _Ang_speed;
     double _Angle;
  public:
