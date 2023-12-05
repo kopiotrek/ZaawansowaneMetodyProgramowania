@@ -45,7 +45,7 @@ public:
         std::map<std::string, MobileObj>::iterator iterator = _Container4Objects.find(sName);
         if (iterator == _Container4Objects.end())
         {
-            std::cout << "Nie znaleziono wtyczki dla polecenia: " << sName << std::endl;
+            std::cout << "FindMobileObj: Nie znaleziono wtyczki dla polecenia: " << sName << std::endl;
         }
         pointer_to_object = &(iterator->second);
         return pointer_to_object;

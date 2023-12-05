@@ -39,7 +39,7 @@ AbstractInterp4Command *Set4LibInterfaces::execute(std::string key)
         std::map<std::string, std::shared_ptr<LibInterface>>::iterator iterator = lib.find(key);
         if (iterator == lib.end())
         {
-            std::cout << "Nie znaleziono wtyczki dla polecenia: " << key << std::endl;
+            std::cout << "Set4LibInterfaces: Nie znaleziono wtyczki dla polecenia: " << key << std::endl;
             return nullptr;
         }
 

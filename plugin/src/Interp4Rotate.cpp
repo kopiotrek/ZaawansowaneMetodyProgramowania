@@ -64,7 +64,7 @@ bool Interp4Rotate::ExecCmd(Scene *scene) const
   double time = _Angle / _Ang_speed; 
   double steps = (int)(time * N);
   double step_distance = _Angle / steps; 
-  double step= 0.0333333;            
+  double step= 100;            
 
 
   double yaw_ = 0;
@@ -126,5 +126,5 @@ AbstractInterp4Command* Interp4Rotate::CreateCmd()
  */
 void Interp4Rotate::PrintSyntax() const
 {
-  cout << "   Rotate nazwa_obiektu nazwa_osi szybko±¢_kątowa kąt_obrotu" << endl;
+  cout << "   Rotate nazwa_obiektu nazwa_osi szybkość_kątowa kąt_obrotu" << endl;
 }

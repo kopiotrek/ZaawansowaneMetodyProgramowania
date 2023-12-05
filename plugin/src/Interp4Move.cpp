@@ -71,7 +71,7 @@ bool Interp4Move::ExecCmd(Scene *scene) const
   double x_ = 0, y_ = 0, z_ = 0;
   Vector3D move;
   double step_distance = _Distance_mm / steps; 
-  double step = 0.0333333 * 1000000;            
+  double step = 5000;            
 
 
   for (int i = 0; i < steps; ++i)
@@ -90,7 +90,6 @@ bool Interp4Move::ExecCmd(Scene *scene) const
     scene->UnlockAccess();
     usleep(step);
   }
- 
 
   return true;
 }

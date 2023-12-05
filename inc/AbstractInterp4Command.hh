@@ -10,7 +10,7 @@
  */
 
 // Liczba kroków animacji
-#define N 30 
+#define N 300 
 
 #include "Scene.hh"
 #include <unistd.h>
