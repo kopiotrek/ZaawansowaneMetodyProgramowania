@@ -8,6 +8,6 @@
  * Porzez ten port realizowana jest komunikacja z zewnętrzną
  * aplikacją klienta.
  */
-#define PORT  6217
+#define PORT  6222
 
 #endif
