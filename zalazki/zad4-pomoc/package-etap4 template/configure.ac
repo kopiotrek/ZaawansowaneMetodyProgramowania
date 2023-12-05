@@ -28,8 +28,8 @@ AC_CONFIG_FILES([
  Makefile
  src/Makefile
  inc/Makefile
- inc-lib/Makefile
  src-lib/Makefile
+ inc-lib/Makefile
 ])
 AC_PROG_INSTALL
 AC_OUTPUT

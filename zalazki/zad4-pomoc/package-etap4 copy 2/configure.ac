@@ -28,7 +28,6 @@ AC_CONFIG_FILES([
  Makefile
  src/Makefile
  inc/Makefile
- inc-lib/Makefile
  src-lib/Makefile
 ])
 AC_PROG_INSTALL
