@@ -22,7 +22,6 @@ class Configuration {
   public:
     std::vector<MobileObjConfig>_ObjectsConfig;
     std::vector<std::string> libs;
-  
 };
 
 #endif

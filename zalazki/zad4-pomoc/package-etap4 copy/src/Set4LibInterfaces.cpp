@@ -13,9 +13,6 @@ bool Set4LibInterfaces::init(std::vector<std::string> lib_vector)
 
         lib.insert(std::make_pair(command_name, new_library));
     }
-
-
-
     return 0;
 }
 

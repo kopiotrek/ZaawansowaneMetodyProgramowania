@@ -22,14 +22,13 @@ End_Parallel_Actions
 Begin_Parallel_Actions
     Pause 1000
 End_Parallel_Actions
-Begin_Parallel_Actions
-    Move Podstawa1 3 3
-    Move Podstawa1.Ramie1 3 3 /* powodują jazdę po łuku */
-    Move Podstawa1.Ramie1.Ramie2 3 4 /* powodują jazdę po łuku */
-    Rotate Podstawa1 OX ROTATE_SPEED 360 /* Rotate i Move wykonywane razem */
-    Rotate Podstawa1.Ramie1 OY ROTATE_SPEED 720 /* Rotate i Move wykonywane razem */
-    Rotate Podstawa1.Ramie1.Ramie2 OZ ROTATE_SPEED 1080 /* Rotate i Move wykonywane razem */
-End_Parallel_Actions
+
+Move Podstawa1 3 3
+Move Podstawa1.Ramie1 3 3 /* powodują jazdę po łuku */
+Move Podstawa1.Ramie1.Ramie2 3 4 /* powodują jazdę po łuku */
+Rotate Podstawa1 OX ROTATE_SPEED 360 /* Rotate i Move wykonywane razem */
+Rotate Podstawa1.Ramie1 OY ROTATE_SPEED 720 /* Rotate i Move wykonywane razem */
+Rotate Podstawa1.Ramie1.Ramie2 OZ ROTATE_SPEED 1080 /* Rotate i Move wykonywane razem */
 
 Begin_Parallel_Actions
     Move Podstawa1 1 10

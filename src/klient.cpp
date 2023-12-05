@@ -151,12 +151,12 @@
 int klient()
 {
   // Inicjalizacja obiektów i zmiennych
-  Configuration Config;
-  Reader reader;
-  Set4LibInterfaces lib_handler;
-  AbstractInterp4Command *command;
+  Configuration Config; // nazwy bibliotek i konfiguracje obiektów 
+  Reader reader; //czytanie xml
+  Set4LibInterfaces lib_handler; //zarządzanie bibliotekami - mapa bibliotek i ich interfejsy
+  AbstractInterp4Command *command; //abstrakcyjny wskaźnik na aktualnie wykorzystywaną funkcję z biblioteki
   std::istringstream stream;
-  std::vector<std::thread> threads;
+  std::vector<std::thread> threads; //wątki
   
   // Inicjalizacja czytnika komend
   reader.init("config/commands.cmd");

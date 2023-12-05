@@ -1,3 +1,0 @@
-SUBDIRS = src inc src-lib inc-lib
-ACLOCAL_AMFLAGS = -I m4
-EXTRA_DIST = README LICENSE INSTALL

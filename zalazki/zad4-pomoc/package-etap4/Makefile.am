@@ -1,3 +1,3 @@
-SUBDIRS = src inc src-lib
+SUBDIRS = src inc plugin
 ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = README LICENSE INSTALL
