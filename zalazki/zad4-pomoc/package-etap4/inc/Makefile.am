@@ -15,4 +15,8 @@ noinst_HEADERS= AbstractComChannel.hh \
                 Set4LibInterfaces.hh \
                 Vector3D.hh \
                 xmlhandler.hh \
-                xmlinterp.hh
+                xmlinterp.hh \
+                Interp4Move.hh \
+                Interp4Pause.hh \
+                Interp4Rotate.hh \
+                Interp4Set.hh

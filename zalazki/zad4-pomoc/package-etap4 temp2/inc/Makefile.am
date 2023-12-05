@@ -12,12 +12,11 @@ noinst_HEADERS= AbstractComChannel.hh \
                 Reader.hh \
                 Scene.hh \
                 Sender.hh \
-                Set4LibInterface.hh \
+                Set4LibInterfaces.hh \
                 Vector3D.hh \
                 xmlhandler.hh \
                 xmlinterp.hh \
-                Interp4Move \
-                Interp4Pause \
-                Interp4Rotate \
-                Interp4Set
-
+                Interp4Move.hh \
+                Interp4Pause.hh \
+                Interp4Rotate.hh \
+                Interp4Set.hh
