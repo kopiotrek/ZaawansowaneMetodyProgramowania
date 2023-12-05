@@ -159,7 +159,7 @@ int klient()
   std::vector<std::thread> threads;
   
   // Inicjalizacja czytnika komend
-  reader.init("commands2.cmd");
+  reader.init("config/commands.cmd");
 
   // Wczytanie pliku konfiguracyjnego
   if (!reader.ReadFile("config/config.xml", Config))

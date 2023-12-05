@@ -130,7 +130,6 @@ bool Interp4Set::ReadParams(std::istream& Strm_CmdsList)
     std::cout << "Blad wczytywania kata z" << std::endl;
     return 1;
   }
-  cout << "Set: Poprawnie wczytano parametry" << endl;
   return 0;
 }
 
