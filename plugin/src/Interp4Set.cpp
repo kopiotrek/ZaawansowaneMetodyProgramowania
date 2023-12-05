@@ -75,33 +75,7 @@ bool Interp4Set::ExecCmd(Scene *scene) const
 
   scene->MarkChange();
   scene->UnlockAccess();
-  usleep(3000);
-
-  // MobileObj *obj = scene->FindMobileObj(_Name.c_str());
-  // Vector3D position = obj->GetPosition_m();
-  // double roll= obj->GetAng_Roll_deg();
-  // double pitch= obj->GetAng_Pitch_deg();
-  // double yaw = obj->GetAng_Yaw_deg();
-
-  // double time = 10 / 10;
-  // double steps = (int)(time * N);
-
-  // double x_ = 0, y_ = 0, z_ = 0;
-  // Vector3D move;
-  // double step_distance = 10 / steps; 
-  // double step = 5000;            
-
-
-
-  // scene->LockAccess();
-  // move[0] = 10+ position[0];
-  // move[1] = y_ + position[1];
-  // move[2] = z_ + position[2];
-  
-  // obj->SetPosition_m(move);
-  // scene->MarkChange();
-  // scene->UnlockAccess();
-    // usleep(step);
+  usleep(10000);
 
   return true;
 }
