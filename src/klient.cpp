@@ -159,7 +159,7 @@ int klient()
   std::vector<std::thread> threads;
   
   // Inicjalizacja czytnika komend
-  reader.init("commands.cmd");
+  reader.init("commands2.cmd");
 
   // Wczytanie pliku konfiguracyjnego
   if (!reader.ReadFile("config/config.xml", Config))
@@ -189,13 +189,13 @@ int klient()
     command = lib_handler.execute(key);
 
     // Obsługa komend równoległych
-    if (lib_handler.isParallel() && command != nullptr)
+    if (!lib_handler.isParallel() && command != nullptr)
     {
       command->ReadParams(stream);
       threads.push_back(std::thread(&AbstractInterp4Command::ExecCmd, command, &scene));
     }
     // Czekanie na zakończenie wątków, jeśli komendy nie są równoległe
-    else if (!lib_handler.isParallel())
+    else if (lib_handler.isParallel())
     {
       for (int i = 0; i < threads.size(); ++i)
       {

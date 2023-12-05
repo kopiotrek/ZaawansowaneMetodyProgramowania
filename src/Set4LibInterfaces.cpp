@@ -26,11 +26,11 @@ AbstractInterp4Command *Set4LibInterfaces::execute(std::string key)
     AbstractInterp4Command *command = nullptr;
 
   
-    if (key == "BEGIN_PARALLEL_ACTIONS")
+    if (key == "Begin_Parallel_Actions")
     {
         parallel = true;
     }
-    else if (key == "END_PARALLEL_ACTIONS")
+    else if (key == "End_Parallel_Actions")
     {
         parallel = false;
     }
