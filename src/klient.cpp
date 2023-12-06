@@ -8,7 +8,7 @@ int klient()
   Set4LibInterfaces lib_handler;    // Klasa zarządzająca interfejsami do bibliotek dynamicznych
   AbstractInterp4Command *command;  // Wskaźnik na abstrakcyjną klasę reprezentującą aktualnie wykonywaną funkcję z biblioteki
   std::istringstream stream;        // Strumień do przetwarzania danych
-  std::vector<std::thread> threads; // Kontener na wątki
+  std::list<std::thread> threads; // Kontener na wątki
 
   // Inicjalizacja czytnika komend
   reader.init("config/commands.cmd");
@@ -49,11 +49,15 @@ int klient()
     // Czekanie na zakończenie wątków, jeśli komendy nie są równoległe
     else if (!lib_handler.isParallel())
     {
-      for (int i = 0; i < threads.size(); ++i)
-      {
-        if (threads[i].joinable())
-          threads[i].join();
+      for (auto & i : threads) {
+        if (i.joinable())
+          i.join();
       }
+      // for (int i = 0; i < threads.size(); ++i)
+      // {
+      //   if (threads[i].joinable())
+      //     threads[i].join();
+      // }
       threads.clear();
     }
   }
@@ -61,11 +65,15 @@ int klient()
   // Zakończenie pracy i oczekiwanie na zakończenie wątków
   sender.Send("Close\n");
   sender.CancelCountinueLooping();
-  for (int i = 0; i < threads.size(); ++i)
-  {
-    if (threads[i].joinable())
-      threads[i].join();
-  }
+  // for (int i = 0; i < threads.size(); ++i)
+  // {
+  //   if (threads[i].joinable())
+  //     threads[i].join();
+  // }
+  for (auto & i : threads) {
+    if (i.joinable())
+      i.join();
+}
   Thread4Sending.join();
 
   return 0;
