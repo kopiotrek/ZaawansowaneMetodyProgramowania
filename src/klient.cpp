@@ -1,16 +1,15 @@
 #include "klient.hh"
 
-
 int klient()
 {
   // Inicjalizacja obiektów i zmiennych
-  Configuration Config; // nazwy bibliotek i konfiguracje obiektów 
-  Reader reader; //czytanie xml
-  Set4LibInterfaces lib_handler; //zarządzanie bibliotekami - mapa bibliotek i ich interfejsy
-  AbstractInterp4Command *command; //abstrakcyjny wskaźnik na aktualnie wykorzystywaną funkcję z biblioteki
-  std::istringstream stream;
-  std::vector<std::thread> threads; //wątki
-  
+  Configuration Config;             // Obiekt przechowujący konfigurację systemu
+  Reader reader;                    // Obiekt do czytania danych z plików XML
+  Set4LibInterfaces lib_handler;    // Klasa zarządzająca interfejsami do bibliotek dynamicznych
+  AbstractInterp4Command *command;  // Wskaźnik na abstrakcyjną klasę reprezentującą aktualnie wykonywaną funkcję z biblioteki
+  std::istringstream stream;        // Strumień do przetwarzania danych
+  std::vector<std::thread> threads; // Kontener na wątki
+
   // Inicjalizacja czytnika komend
   reader.init("config/commands.cmd");
 
@@ -20,7 +19,7 @@ int klient()
     return 1;
   }
 
-  // Inicjalizacja sceny i wysyłanie
+  // Inicjalizacja sceny i nawiązywanie połączenia
   Scene scene(Config);
   Sender sender(&scene);
   if (!sender.OpenConnection())
@@ -31,7 +30,7 @@ int klient()
 
   // Wątek do obserwacji i wysyłania danych
   std::thread Thread4Sending(&Sender::Watching_and_Sending, &sender);
-  
+
   std::string key;
 
   // Wczytywanie poleceń z pliku
@@ -42,7 +41,6 @@ int klient()
     command = lib_handler.execute(key);
 
     // Obsługa komend równoległych
-
     if (lib_handler.isParallel() && command != nullptr)
     {
       command->ReadParams(stream);
@@ -60,7 +58,7 @@ int klient()
     }
   }
 
-  // Zakończenie pracy i czekanie na zakończenie wątków
+  // Zakończenie pracy i oczekiwanie na zakończenie wątków
   sender.Send("Close\n");
   sender.CancelCountinueLooping();
   for (int i = 0; i < threads.size(); ++i)
