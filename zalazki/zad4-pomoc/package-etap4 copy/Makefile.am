@@ -1,3 +1,0 @@
-SUBDIRS = src inc src-lib config dox
-ACLOCAL_AMFLAGS = -I m4
-EXTRA_DIST = README LICENSE INSTALL
